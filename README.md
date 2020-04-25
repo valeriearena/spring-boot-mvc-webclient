@@ -1,4 +1,4 @@
-# spring-boot-springmvc-springwebclient (careteam-interface-client)
+# spring-boot-mvc-webclient (careteam-interface-client)
 Spring Boot app that implements the following:
 * Spring MVC + Thymleaf UI
 * Spring REST client for the CareTeam_Interface module.
