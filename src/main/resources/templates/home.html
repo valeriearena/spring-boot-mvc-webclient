@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/theme/style.css}"/>
+    <title>CTClient</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<div id="top-container-inner"></div>
+<div style="height: 90px;"></div>
+
+<div class="content">
+    <div class="shadow-right-bottom" id="pagetitle-wrapper">
+        <span style="float: left;padding: 8px 0px 0px 10px;"></span>
+        <span class="pageTitle">Try Out the Care Team Interface Module!</span>
+    </div>
+
+    <div style="padding: 10px 15px 20px 15px;">
+
+        <div class="center">
+            <a th:href="@{/ctassignments/token}"/>Get Access Token</a>
+            <a th:href="@{/ctassignments/view}"/>View Care Team</a>
+            <a th:href="@{/ctassignments/patient}">Make Patient Assignments</a>
+            <a th:href="@{/ctassignments/location}">Make Location Assignments</a>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

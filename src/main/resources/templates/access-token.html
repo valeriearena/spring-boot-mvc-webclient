@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/theme/style.css}"/>
+    <title>Access Token</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<div id="top-container-inner"></div>
+<div style="height: 90px;"></div>
+
+<div class="content">
+    <div class="shadow-right-bottom" id="pagetitle-wrapper">
+        <span style="float: left;padding: 8px 0px 0px 10px;"></span>
+        <span class="pageTitle">Get Access Token!</span>
+    </div>
+
+    <span style="float: left;padding: 8px 0px 0px 10px;">
+    <a class="button gray small" th:href="@{/ctassignments}"><span>Back</span></a>
+
+    <p class="italictext">To get an access token for authorization, please enter your user name and password.</p>
+
+    <form method="post" th:action="@{/ctassignments/token}" th:object="${accessTokenBean}">
+
+    <div class="info" th:if="${successMessage}" th:text="${successMessage}"/>
+    <div class="error-message" th:if="${errorMessage}" th:text="${errorMessage}"/>
+
+     <table>
+
+   </table>
+
+    <table class="table-form">
+        <tr>
+            <td><label class="label">User Name: </label></td>
+            <td>
+                <input placeholder="User Name" th:field="*{userName}">
+                <label class="error" th:errors="*{userName}" th:if="${#fields.hasErrors('userName')}"/>
+            </td>
+        </tr>
+
+        <tr>
+            <td><label class="label">Password: </label></td>
+            <td>
+                <input placeholder="Password" th:field="*{password}">
+                <label class="error" th:errors="*{password}" th:if="${#fields.hasErrors('password')}"/>
+            </td>
+        </tr>
+
+        <tr >
+            <td align="left" colspan="2"><input class="button purple" type="submit" value="Get Access Token"/></td>
+        </tr>
+
+    </table>
+
+    </form>
+    </span>
+
+</div>
+
+</body>
+</html>

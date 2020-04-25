@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/theme/style.css}"/>
+    <title>Care Team</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<div id="top-container-inner"></div>
+<div style="height: 90px;"></div>
+
+<div class="content">
+    <div class="shadow-right-bottom" id="pagetitle-wrapper">
+        <span style="float: left;padding: 8px 0px 0px 10px;"></span>
+        <span class="pageTitle">View Patient Care Team!</span>
+    </div>
+
+
+    <span style="float: left;padding: 8px 0px 0px 10px;">
+    <a class="button gray small" th:href="@{/ctassignments}"><span>Back</span></a>
+
+    <p class="italictext">To retrieve a careteam, please enter a patient visit number. Patient MRN is not required.</p>
+
+    <div class="info" th:if="${successMessage}" th:text="${successMessage}"/>
+    <div class="error-message" th:if="${errorMessage}" th:text="${errorMessage}"/>
+
+    <form method="post" th:action="@{/ctassignments/view}" th:object="${viewRequest}">
+
+    <table class="table-form">
+
+        <tr>
+            <td><label class="label">Patient Visit Number: </label></td>
+            <td>
+                <input placeholder="Patient Visit Number" th:field="*{visitNumber}">
+                <label class="error" th:errors="*{visitNumber}" th:if="${#fields.hasErrors('visitNumber')}"/>
+            </td>
+
+        </tr>
+
+        <tr>
+            <td><label class="label">Patient MRN: </label></td>
+            <td><input placeholder="Patient MRN" th:field="*{mrn}"/></td>
+        </tr>
+
+        <tr>
+            <td align="left" colspan="2"><input class="button purple" type="submit" value="View Care Team"/></td>
+        </tr>
+
+        </table>
+    </form>
+
+    <form method="post" th:action="@{/ctassignments/careteam}" th:object="${viewResponse}">
+
+        <tbody>
+
+        <table class="table-form-border" width="100%">
+            <tr>
+                <td colspan="7"><hr></td>
+            </tr>
+            <tr>
+                <td colspan="7"><label><h3 class="h3 center">Internal Provider</h3></label></td>
+            </tr>
+            <tr>
+                <th class="table-border"><label class="label">User Identifier</label></th>
+                <th class="table-border"><label class="label">Full Name</label></th>
+                <th class="table-border"><label class="label">User Role</label></th>
+                <th class="table-border"><label class="label">User Status</label></th>
+                <th class="table-border"><label class="label">Patient Specific Role</label></th>
+                <th class="table-border"><label class="label">Assigned Timestamp</label></th>
+            </tr>
+            <tr th:each="internalProvider, iter : *{internalProviders}">
+                <td class="table-border"><input readonly th:field="*{internalProviders[__${iter.index}__].userIdentifier}"/></td>
+                <td class="table-border"><input readonly th:field="*{internalProviders[__${iter.index}__].fullName}"/></td>
+                <td class="table-border"><input readonly th:field="*{internalProviders[__${iter.index}__].userRole}"/></td>
+                <td class="table-border"><input readonly th:field="*{internalProviders[__${iter.index}__].userStatus}"/></td>
+                <td class="table-border"><input readonly th:field="*{internalProviders[__${iter.index}__].patientSpecificRole}"/></td>
+                <td class="table-border"><input readonly th:field="*{internalProviders[__${iter.index}__].assignmentTimestamp}"/></td>
+            </tr>
+
+        </table>
+
+        </tbody>
+
+        <tbody>
+
+        <table class="table-form-border" width="100%">
+            <tr>
+                <td colspan="3"><hr></td>
+            </tr>
+            <tr>
+                <td colspan="3"><label><h3 class="h3 center">External Provider</h3></label></td>
+            </tr>
+            <tr>
+                <th class="table-border"><label class="label">Full Name</label></th>
+                <th class="table-border"><label class="label">Phone Number</label></th>
+                <th class="table-border"><label class="label">Assigned Timestamp</label></th>
+            </tr>
+            <tr th:each="externalProviders, iter : *{externalProviders}">
+                <td class="table-border"><input readonly th:field="*{externalProviders[__${iter.index}__].fullName}"/></td>
+                <td class="table-border"><input readonly th:field="*{externalProviders[__${iter.index}__].phoneLabelNumberList}"/></td>
+                <td class="table-border"><input readonly th:field="*{externalProviders[__${iter.index}__].assignmentTimestamp}"/></td>
+            </tr>
+
+        </table>
+
+        </tbody>
+
+    </form>
+    </span>
+
+</div>
+
+</body>
+</html>

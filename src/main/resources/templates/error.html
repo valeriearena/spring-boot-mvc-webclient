@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/theme/style.css}"/>
+    <title>Error</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<div id="top-container-inner"></div>
+<div style="height: 90px;"></div>
+
+<div class="content">
+    <div class="shadow-right-bottom" id="pagetitle-wrapper">
+        <span style="float: left;padding: 8px 0px 0px 10px;"></span>
+        <span class="pageTitle">CTClient Error! Please see the log file for details.</span>
+    </div>
+
+    <span style="float: left;padding: 8px 0px 0px 10px;">
+        <a class="button gray small" th:href="@{/ctassignments}"><span>Back</span></a>
+    </span>
+
+    <h4 class="center"><label class="error" th:text="${errorMessage}"/></h4>
+</div>
+
+</body>
+</html>

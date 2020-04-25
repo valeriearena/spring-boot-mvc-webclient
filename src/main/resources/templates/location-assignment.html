@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/theme/style.css}"/>
+    <title>Location Assignments</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<div id="top-container-inner"></div>
+<div style="height: 90px;"></div>
+
+<div class="content">
+    <div class="shadow-right-bottom" id="pagetitle-wrapper">
+        <span style="float: left;padding: 8px 0px 0px 10px;"></span>
+        <span class="pageTitle">Make Location Assignments!</span>
+    </div>
+
+    <span style="float: left;padding: 8px 0px 0px 10px;">
+    <a class="button gray small" th:href="@{/ctassignments}"><span>Back</span></a>
+
+    <p class="italictext">
+        To make an assignment, please enter the external code for a bed location. Caregiver roles not required.
+        If no providers are entered, assignments will be cleared.
+    </p>
+
+    <div class="info" th:if="${successMessage}" th:text="${successMessage}"/>
+    <div class="error-message" th:if="${errorMessage}" th:text="${errorMessage}"/>
+
+    <form method="post" th:action="@{/ctassignments/location}" th:object="${careTeamLocationAssignment}">
+
+    <table class="table-form">
+
+        <tr>
+            <td><label class="label">Bed Location: </label></td>
+            <td>
+                <input placeholder="Bed Location" th:field="*{locationId}">
+                <label class="error" th:errors="*{locationId}" th:if="${#fields.hasErrors('locationId')}"/>
+            </td>
+        </tr>
+
+        <tbody>
+            <tr th:each="provider, iter : *{careTeam}">
+                <td><label class="label">Caregiver: </label></td>
+                <td>
+                    <input placeholder="User Identifier" th:field="*{careTeam[__${iter.index}__].userIdentifier}"/>
+                    <input placeholder="Role" th:field="*{careTeam[__${iter.index}__].role}"/>
+                </td>
+            </tr>
+        </tbody>
+
+        <tr>
+            <td align="left" colspan="2"><input class="button purple" type="submit" value="Save"/></td>
+        </tr>
+
+    </table>
+
+    </form>
+    </span>
+
+</div>
+
+</body>
+</html>

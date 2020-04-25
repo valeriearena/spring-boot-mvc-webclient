@@ -1,0 +1,87 @@
+// To start and stop without building:
+// 		./gradlew bootRun
+//		./gradlew –stop
+// To build:
+// 		./gradlew clean build
+// To exececute jar: java -jar build/lib/ctclient.jar
+
+// To build a docker image via docker command:
+// 		gradle clean build
+// 		docker build --build-arg JAR_FILE=build/libs/*.jar -t ctclient_docker .
+// To build a docker image via gradlew:
+//		./gradlew jibDockerBuild --image=ctclient_docker
+// To run a docker image:
+//		docker run -p 8080:8080 --name ctclient ctclient_docker
+// To stop and remove a docker container:
+// 		docker stop ctclient
+//		docker rm ctclient
+// To remove the image:
+//		docker images
+// 		docker rmi IMAGE ID
+
+// To push a docker image:
+//		docker login -u mobileheartbeat -p 838af7ed53bb2d5d1b8eefdc26cafe202d97da2c docker.pkg.github.com
+//		docker images
+//		docker tag IMAGE ID docker.pkg.github.com/mobileheartbeat/careteam-interface-client/ctclient_docker:v1
+//		docker push docker.pkg.github.com/mobileheartbeat/careteam-interface-client/ctclient_docker:v1
+// To pull a docker image:
+//		docker pull docker.pkg.github.com/mobileheartbeat/careteam-interface-client/ctclient_docker:v1
+// To run the
+//		docker run -p 8080:8080 --name ctclient docker.pkg.github.com/mobileheartbeat/careteam-interface-client/ctclient_docker:v1
+// To stop and remove a docker container:
+// 		docker stop ctclient
+//		docker rm ctclient
+// To remove the image:
+//		docker images
+// 		docker rmi IMAGE ID
+
+plugins {
+
+	// When the Spring IO plugin is applied, the Spring Boot plugin automatically imports the Spring Boot parent POM,
+	// which allows you to manage dependencies without worrying about the versions and compatibility between them.
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+
+	// Spring Boot helps with managing dependencies, configuration, and deployment.
+	// Spring Boot does include dependencies called Spring starters (starter poms).
+	// The Spring Boot plugin requires Spring IO plugin and the java plugin.
+	id 'org.springframework.boot' version '2.2.4.RELEASE'
+
+	// When the java plugin is applied a task for building an executable jar is automatically configured.
+	id 'java'
+
+	// Docker plugin.
+	id 'com.google.cloud.tools.jib' version '2.0.0'
+}
+
+// Set to true to enable unit / integration tests.
+test.enabled = false
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+
+	// Spring starters list transitive dependencies with versions that have been tested together to save you time from putting libraries together.
+	// Spring starters also apply autoconfiguration with defaults based on dependencies in the classpath, annotations, and configurations in property file.
+	// Set logging level to DEBUG to see details on what is autoconfigured and what was not autoconfigured (find CONDITIONS EVALUATION REPORT in logs).
+
+	// https://docs.spring.io/spring-boot/docs/1.2.1.RELEASE/reference/htmlsingle/#using-boot-starter-poms
+	// https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-dependencies/2.2.4.RELEASE/spring-boot-dependencies-2.2.4.RELEASE.pom
+
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+	implementation 'org.apache.commons:commons-lang3:3.9'
+
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+
+}
+
+test {
+	useJUnitPlatform()
+}
